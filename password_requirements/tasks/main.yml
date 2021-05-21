@@ -1,0 +1,107 @@
+- name: check password requirements
+  shell:
+    "cat /etc/pam.d/password-auth | awk '/remember/' "
+  register: out
+- set_fact:
+    password_requirements_pam : "{{ out.stdout_lines }}"
+- debug:
+   var: password_requirements_pam
+
+- name: check password requirements
+  shell:
+    "cat /etc/security/pwquality.conf | awk '/minlen/||/minclass/||/dcredit/||/ucredit/||/ocredit/||/lcredit/' "
+  register: out
+- set_fact:
+    password_requirements_security : "{{ out.stdout_lines }}"
+- debug:
+   var: password_requirements_security
+
+- name: check password requirements
+  shell:
+    "cat /etc/pam.d/password-auth | awk '/remember/' "
+  register: out
+- set_fact:
+    password_reuse_limited : "{{ out }}"
+- debug:
+   var: password_reuse_limited
+
+- name: check password requirements
+  shell:
+    "cat /etc/pam.d/password-auth | awk '/sha512/' "
+  register: out
+- set_fact:
+    password_hash : "{{ out.stdout_lines }}"
+- debug:
+   var: password_hash
+
+- name: check password requirements
+  shell:
+    "cat /etc/pam.d/system-auth | awk '/remember/' "
+  register: out
+- set_fact:
+    system_password_reuse_limited : "{{ out.stdout_lines }}"
+- debug:
+   var: system_password_reuse_limited
+
+- name: check password requirements
+  shell:
+    "cat /etc/pam.d/system-auth | awk '/sha512/' "
+  register: out
+- set_fact:
+    system_password_hash : "{{ out.stdout_lines }}"
+- debug:
+   var: system_password_hash
+
+- name: check password expiration
+  shell:
+    "cat /etc/login.defs | awk '/PASS_MAX_DAYS/{print $2}'"
+  register: out
+- set_fact:
+    PASS_MAX_DAYS : "{{ out.stdout_lines.1 }}"
+- debug:
+   var: PASS_MAX_DAYS
+
+- name: check users password expiration
+  shell:
+    "grep -E '^[^:]+:[^!*]' /etc/shadow | cut -d: -f1,5"
+  register: out
+- set_fact:
+    USER_PASS_MAX_DAYS : "{{ out.stdout }}"
+- debug:
+   var: USER_PASS_MAX_DAYS
+
+- name: check password minimum days before changing
+  shell:
+    "cat /etc/login.defs | awk '/PASS_MIN_DAYS/{print $2}'"
+  register: out
+- set_fact:
+    PASS_MIN_DAYS : "{{ out.stdout_lines.1 }}"
+- debug:
+   var: PASS_MIN_DAYS
+
+- name: check users password minimum days before changing
+  shell:
+    "grep -E '^[^:]+:[^!*]' /etc/shadow | cut -d: -f1,4"
+  register: out
+- set_fact:
+    USER_PASS_MIN_DAYS : "{{ out.stdout }}"
+- debug:
+   var: USER_PASS_MIN_DAYS
+
+- name: check password expiration warning days
+  shell:
+    "cat /etc/login.defs | awk '/PASS_WARN_AGE/{print $2}'"
+  register: out
+- set_fact:
+    PASS_WARN_AGE : "{{ out.stdout_lines.1 }}"
+- debug:
+   var: PASS_WARN_AGE
+
+- name: check password expiration warning days
+  shell:
+    "grep -E '^[^:]+:[^!*]' /etc/shadow | cut -d: -f1,6"
+  register: out
+- set_fact:
+    USER_PASS_WARN_AGE : "{{ out.stdout }}"
+- debug:
+   var: USER_PASS_WARN_AGE

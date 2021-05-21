@@ -1,0 +1,5 @@
+---
+- hosts: eagle320.startdedicated.com
+  roles:
+    - file_permission
+    - password_requirements

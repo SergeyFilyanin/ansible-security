@@ -1,0 +1,49 @@
+- name: check permission for /etc/shadow
+  shell:
+    stat /etc/shadow
+  register: out
+- set_fact:
+    shadow_conf_permission: "{{ out.stdout_lines.3}}"
+- debug:
+   var: shadow_conf_permission
+
+- name: check permission for /etc/gshadow
+  shell:
+    stat /etc/gshadow
+  register: out
+- set_fact:
+    gshadow_conf_permission: "{{ out.stdout_lines.3}}"
+- debug:
+   var: gshadow_conf_permission
+
+- name: check permission for /etc/ssh/sshd_config
+  shell:
+    stat /etc/ssh/sshd_config
+  register: out
+- set_fact:
+    sshd_conf_permission_value: "{{ out.stdout_lines.3}}"
+- debug:
+   var: sshd_conf_permission_value
+
+- name: check permission for /etc/passwd
+  shell:
+    stat /etc/passwd
+  register: out
+- set_fact:
+    passwd_conf_permission_value: "{{ out.stdout_lines.3}}"
+- debug:
+   var: passwd_conf_permission_value
+
+- name: check permission for /etc/group
+  shell:
+    stat /etc/group
+  register: out
+- set_fact:
+    etc_group_conf_permission: "{{ out.stdout_lines.3}}"
+- debug:
+   var: etc_group_conf_permission
+
+
+
+
+
