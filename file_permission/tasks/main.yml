@@ -6,7 +6,7 @@
     shadow_conf_permission: "{{ out.stdout_lines.3}}"
 - debug:
    var: shadow_conf_permission
-- local_action: lineinfile line={{ inventory_hostname }}_{{ shadow_conf_permission }} path=/tmp/output.json
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ shadow_conf_permission }}' path=/tmp/output.json
 
 - name: check permission for /etc/gshadow
   shell:
@@ -16,7 +16,7 @@
     gshadow_conf_permission: "{{ out.stdout_lines.3}}"
 - debug:
    var: gshadow_conf_permission
-- local_action: lineinfile line={{ inventory_hostname }}_{{ gshadow_conf_permission }} path=/tmp/output.json
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ gshadow_conf_permission }}' path=/tmp/output.json
 
 - name: check permission for /etc/ssh/sshd_config
   shell:
@@ -26,7 +26,7 @@
     sshd_conf_permission_value: "{{ out.stdout_lines.3}}"
 - debug:
    var: sshd_conf_permission_value
-- local_action: lineinfile line={{ inventory_hostname }}_{{ sshd_conf_permission_value }} path=/tmp/output.json
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ sshd_conf_permission_value }}' path=/tmp/output.json
 
 - name: check permission for /etc/passwd
   shell:
@@ -36,7 +36,7 @@
     passwd_conf_permission_value: "{{ out.stdout_lines.3}}"
 - debug:
    var: passwd_conf_permission_value
-- local_action: lineinfile line={{ inventory_hostname }}_{{ passwd_conf_permission_value }} path=/tmp/output.json
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ passwd_conf_permission_value }}' path=/tmp/output.json
 
 - name: check permission for /etc/group
   shell:
@@ -46,7 +46,7 @@
     etc_group_conf_permission: "{{ out.stdout_lines.3}}"
 - debug:
    var: etc_group_conf_permission
-- local_action: lineinfile line={{ inventory_hostname }}_{{ etc_group_conf_permission }} path=/tmp/output.json
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ etc_group_conf_permission }}' path=/tmp/output.json
 
 
 
