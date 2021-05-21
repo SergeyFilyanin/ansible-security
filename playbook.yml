@@ -1,5 +1,5 @@
 ---
-- hosts: eagle320.startdedicated.com
+- hosts: webservers
   roles:
     - file_permission
     - password_requirements

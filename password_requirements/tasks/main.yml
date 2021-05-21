@@ -6,6 +6,7 @@
     password_requirements_pam : "{{ out.stdout_lines }}"
 - debug:
    var: password_requirements_pam
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ password_requirements_pam }}' path=/tmp/output.json
 
 - name: check password requirements
   shell:
@@ -15,6 +16,7 @@
     password_requirements_security : "{{ out.stdout_lines }}"
 - debug:
    var: password_requirements_security
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ password_requirements_security }}' path=/tmp/output.json
 
 - name: check password requirements
   shell:
@@ -24,6 +26,7 @@
     password_reuse_limited : "{{ out }}"
 - debug:
    var: password_reuse_limited
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ password_reuse_limited }}' path=/tmp/output.json
 
 - name: check password requirements
   shell:
@@ -33,6 +36,7 @@
     password_hash : "{{ out.stdout_lines }}"
 - debug:
    var: password_hash
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ password_hash }}' path=/tmp/output.json
 
 - name: check password requirements
   shell:
@@ -42,6 +46,7 @@
     system_password_reuse_limited : "{{ out.stdout_lines }}"
 - debug:
    var: system_password_reuse_limited
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ system_password_reuse_limited }}' path=/tmp/output.json
 
 - name: check password requirements
   shell:
@@ -51,6 +56,7 @@
     system_password_hash : "{{ out.stdout_lines }}"
 - debug:
    var: system_password_hash
+- local_action: lineinfile line='{{ inventory_hostname }}	{{ system_password_hash }}' path=/tmp/output.json
 
 - name: check password expiration
   shell:
@@ -60,6 +66,7 @@
     PASS_MAX_DAYS : "{{ out.stdout_lines.1 }}"
 - debug:
    var: PASS_MAX_DAYS
+- local_action: lineinfile line='{{ inventory_hostname }}	PASS_MAX_DAYS:{{ PASS_MAX_DAYS }}' path=/tmp/output.json
 
 - name: check users password expiration
   shell:
@@ -69,6 +76,7 @@
     USER_PASS_MAX_DAYS : "{{ out.stdout }}"
 - debug:
    var: USER_PASS_MAX_DAYS
+- local_action: lineinfile line='{{ inventory_hostname }}	USER_PASS_MAX_DAYS:{{ USER_PASS_MAX_DAYS }}' path=/tmp/output.json
 
 - name: check password minimum days before changing
   shell:
@@ -78,6 +86,7 @@
     PASS_MIN_DAYS : "{{ out.stdout_lines.1 }}"
 - debug:
    var: PASS_MIN_DAYS
+- local_action: lineinfile line='{{ inventory_hostname }}	PASS_MIN_DAYS:{{ PASS_MIN_DAYS }}' path=/tmp/output.json
 
 - name: check users password minimum days before changing
   shell:
@@ -87,6 +96,7 @@
     USER_PASS_MIN_DAYS : "{{ out.stdout }}"
 - debug:
    var: USER_PASS_MIN_DAYS
+- local_action: lineinfile line='{{ inventory_hostname }}	USER_PASS_MIN_DAYS:{{ USER_PASS_MIN_DAYS }}' path=/tmp/output.json
 
 - name: check password expiration warning days
   shell:
@@ -96,6 +106,7 @@
     PASS_WARN_AGE : "{{ out.stdout_lines.1 }}"
 - debug:
    var: PASS_WARN_AGE
+- local_action: lineinfile line='{{ inventory_hostname }}	PASS_WARN_AGE:{{ PASS_WARN_AGE }}' path=/tmp/output.json
 
 - name: check password expiration warning days
   shell:
@@ -105,3 +116,4 @@
     USER_PASS_WARN_AGE : "{{ out.stdout }}"
 - debug:
    var: USER_PASS_WARN_AGE
+- local_action: lineinfile line='{{ inventory_hostname }}	USER_PASS_WARN_AGE:{{ USER_PASS_WARN_AGE }}' path=/tmp/output.json
